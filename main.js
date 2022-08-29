@@ -7,12 +7,23 @@ class Block {
     this.timestamp = timestamp;
     this.data = data;
     this.previousHash = previousHash;
-    this.hash = ''
+    this.hash = '';
+    this.nonce = 0;
   }
 
   // gen sha token
   calculateHash() {
-    return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data)).toString();
+    return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data) + this.nonce).toString();
+  }
+
+  minBlock(difficulty) {
+    while (this.hash.substring(0, difficulty) !== Array(difficulty + 1)
+      .join("0")) {
+      this.nonce++;
+      this.hash = this.calculateHash();
+    }
+
+    console.log("Block mined: ", this.hash);
   }
 
 }
@@ -20,6 +31,7 @@ class Block {
 class BlockChain {
   constructor() {
     this.chain = [this.createGenesisBlock()];
+    this.difficulty = 2;
   }
 
   createGenesisBlock() {
@@ -32,7 +44,8 @@ class BlockChain {
 
   addBlock(newBlock) {
     newBlock.previousHash = this.getLatesBlock().hash;
-    newBlock.hash = newBlock.calculateHash();
+    // newBlock.hash = newBlock.calculateHash();
+    newBlock.minBlock(this.difficulty);
     this.chain.push(newBlock);
   }
 
@@ -56,14 +69,18 @@ class BlockChain {
 }
 
 let savjeeCoin = new BlockChain();
+
+
+// console.log('Is blockchain valid?', savjeeCoin.isChainValid());
+
+// // when change something in block, chain is invalid
+// savjeeCoin.chain[1].data = { amount: 100 };
+
+// console.log('Is blockchain valid?', savjeeCoin.isChainValid());
+// console.log(JSON.stringify(savjeeCoin, null, 4));
+
+console.log('Mining block 1...');
 savjeeCoin.addBlock(new Block(1, "10/07/2022", { amount: 4 }));
+
+console.log('Mining block 1...');
 savjeeCoin.addBlock(new Block(2, "12/07/2022", { amount: 10 }));
-
-
-console.log('Is blockchain valid?', savjeeCoin.isChainValid());
-
-// when change something in block, chain is invalid
-savjeeCoin.chain[1].data = { amount: 100 };
-
-console.log('Is blockchain valid?', savjeeCoin.isChainValid());
-console.log(JSON.stringify(savjeeCoin, null, 4));
