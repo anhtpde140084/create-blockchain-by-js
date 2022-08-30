@@ -68,19 +68,19 @@ class BlockChain {
   }
 }
 
-let savjeeCoin = new BlockChain();
+let anhtpCoin = new BlockChain();
 
 
-// console.log('Is blockchain valid?', savjeeCoin.isChainValid());
+// console.log('Is blockchain valid?', anhtpCoin.isChainValid());
 
 // // when change something in block, chain is invalid
-// savjeeCoin.chain[1].data = { amount: 100 };
+// anhtpCoin.chain[1].data = { amount: 100 };
 
-// console.log('Is blockchain valid?', savjeeCoin.isChainValid());
-// console.log(JSON.stringify(savjeeCoin, null, 4));
-
-console.log('Mining block 1...');
-savjeeCoin.addBlock(new Block(1, "10/07/2022", { amount: 4 }));
+// console.log('Is blockchain valid?', anhtpCoin.isChainValid());
+// console.log(JSON.stringify(anhtpCoin, null, 4));
 
 console.log('Mining block 1...');
-savjeeCoin.addBlock(new Block(2, "12/07/2022", { amount: 10 }));
+anhtpCoin.addBlock(new Block(1, "10/07/2022", { amount: 4 }));
+
+console.log('Mining block 1...');
+anhtpCoin.addBlock(new Block(2, "12/07/2022", { amount: 10 }));
