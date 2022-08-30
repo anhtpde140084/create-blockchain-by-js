@@ -23,7 +23,7 @@ savjeeCoin.minePendingTransaction(myWalletAdress);
 
 console.log('\n Balance of anhTp is: ', savjeeCoin.getBalanceOfAddress(myWalletAdress));
 
-// check is valid chain
+// check is valid
 // savjeeCoin.chain[1].transactions[0].amount = 1;
 
 // console.log('\n Start the miner again...');
